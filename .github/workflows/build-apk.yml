@@ -26,12 +26,15 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      # إذا كان مشروعك داخل مجلد فرعي، أضف السطر التالي وأزل علامة الشباك #:
+      # working-directory: ./اسم_المجلد_الفرعي
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug
+      # working-directory: ./اسم_المجلد_الفرعي
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: '**/build/outputs/apk/debug/*.apk'
