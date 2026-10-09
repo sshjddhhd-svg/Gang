@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "492964938901",
+    "project_id": "gang-eff17",
+    "storage_bucket": "gang-eff17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492964938901:android:8cf1c8248f4e3d1d2d079c",
+        "android_client_info": {
+          "package_name": "com.gang.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492964938901-m82peungl60753ji0to6picmoniu1hb9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmAB62BBFITN4c9v0PqPtCRJED3myjStQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492964938901-dshom3m8g37bji1eo7251lq8mnkq6okr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
