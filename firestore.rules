@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwnerAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'sshjddhhd@gmail.com' ||
+        (request.auth.token.keys().hasAll(['email']) && request.auth.token.email == 'sshjddhhd@gmail.com')
+      );
+    }
+
+    function isUser(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Public user profiles & notifications
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isUser(userId) || isOwnerAdmin();
+      allow update: if isUser(userId) || isOwnerAdmin() || (
+        isAuthenticated() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['followersCount'])
+      );
+      allow delete: if isOwnerAdmin() || isUser(userId);
+
+      // Private profile path containing email
+      match /private/{docId} {
+        allow read, write: if isUser(userId) || isOwnerAdmin();
+      }
+
+      // User notifications
+      match /notifications/{notificationId} {
+        allow read: if isUser(userId) || isOwnerAdmin();
+        allow write: if isAuthenticated();
+      }
+    }
+
+    // Username reservation registry
+    match /usernames/{username} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (request.resource.data.userId == request.auth.uid || isOwnerAdmin());
+      allow update, delete: if isOwnerAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+    }
+
+    // Posts & comments
+    match /posts/{postId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && (request.resource.data.authorId == request.auth.uid || isOwnerAdmin());
+      allow update: if isOwnerAdmin() || (isAuthenticated() && (
+        request.auth.uid == resource.data.authorId ||
+        request.resource.data.diff(resource.data).affectedKeys().hasAny(['likesCount', 'likedBy', 'commentsCount', 'sharesCount'])
+      ));
+      allow delete: if isOwnerAdmin() || (isAuthenticated() && resource.data.authorId == request.auth.uid);
+
+      // Comments subcollection
+      match /comments/{commentId} {
+        allow read: if isAuthenticated();
+        allow create: if isAuthenticated() && (request.resource.data.authorId == request.auth.uid || isOwnerAdmin());
+        allow update, delete: if isOwnerAdmin() || (isAuthenticated() && resource.data.authorId == request.auth.uid);
+      }
+    }
+
+    // Chats and channels
+    match /chats/{chatId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isOwnerAdmin();
+
+      // Messages in chat
+      match /messages/{messageId} {
+        allow read: if isAuthenticated();
+        allow create: if isAuthenticated() && (request.resource.data.senderId == request.auth.uid || isOwnerAdmin());
+        allow update: if isOwnerAdmin() || (isAuthenticated() && (
+          request.auth.uid == resource.data.senderId ||
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions'])
+        ));
+        allow delete: if isOwnerAdmin() || (isAuthenticated() && resource.data.senderId == request.auth.uid);
+      }
+    }
+
+    // Global Admin Announcements
+    match /announcements/{announcementId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwnerAdmin();
+    }
+  }
+}

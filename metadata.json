@@ -1,0 +1,6 @@
+{
+  "name": "Gang",
+  "description": "تطبيق مجتمع ودردشة فورية مع منشورات، رومات ورسائل مباشرة، تخصيص مجموعات بصور، وثيمات أنيقة مثل الماسنجر.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

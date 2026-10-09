@@ -1,0 +1,155 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Public user profile in Gang",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "displayName": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "bio": { "type": "string" },
+        "followersCount": { "type": "number" },
+        "followingCount": { "type": "number" },
+        "postsCount": { "type": "number" },
+        "isBanned": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "username", "displayName"]
+    },
+    "PrivateProfile": {
+      "title": "PrivateProfile",
+      "description": "Sensitive private data for user",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string" }
+      },
+      "required": ["email"]
+    },
+    "UsernameIndex": {
+      "title": "UsernameIndex",
+      "description": "Unique username claim reservation",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" }
+      },
+      "required": ["userId"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Feed post in Gang community",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorUsername": { "type": "string" },
+        "authorAvatarUrl": { "type": "string" },
+        "text": { "type": "string" },
+        "mediaUrls": { "type": "array" },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "sharesCount": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "authorId", "text", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Post comment",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorUsername": { "type": "string" },
+        "authorAvatarUrl": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "postId", "authorId", "text", "createdAt"]
+    },
+    "ChatChannel": {
+      "title": "ChatChannel",
+      "description": "DM or Public group channel",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "participantIds": { "type": "array" },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "number" }
+      },
+      "required": ["id", "type", "name"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Message inside chat or channel",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderAvatarUrl": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "edited": { "type": "boolean" },
+        "replyTo": { "type": "object" },
+        "reactions": { "type": "object" }
+      },
+      "required": ["id", "senderId", "text", "createdAt"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Global admin broadcast",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "authorEmail": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "title", "message", "authorEmail", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Public user profile"
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": "PrivateProfile",
+      "description": "User private profile containing email"
+    },
+    "/usernames/{username}": {
+      "schema": "UsernameIndex",
+      "description": "Username uniqueness registry"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Gang community posts"
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on community posts"
+    },
+    "/chats/{chatId}": {
+      "schema": "ChatChannel",
+      "description": "DMs and public chat channels"
+    },
+    "/chats/{chatId}/messages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Real-time messages in chat channel"
+    },
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Global announcements from admin"
+    }
+  }
+}
