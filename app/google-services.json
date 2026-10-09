@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "492964938901",
-    "project_id": "gang-eff17",
-    "storage_bucket": "gang-eff17.firebasestorage.app"
+    "project_number": "309242103146",
+    "project_id": "gen-lang-client-0500128219",
+    "storage_bucket": "gen-lang-client-0500128219.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:492964938901:android:8cf1c8248f4e3d1d2d079c",
+        "mobilesdk_app_id": "1:309242103146:android:1e087842ef837891701113",
         "android_client_info": {
-          "package_name": "com.gang.mobile"
+          "package_name": "com.aistudio.gang.appkrz"
         }
       },
       "oauth_client": [
         {
-          "client_id": "492964938901-m82peungl60753ji0to6picmoniu1hb9.apps.googleusercontent.com",
+          "client_id": "309242103146-2tnb6qcff7p8nhnrgifq233o8ihbkpum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aistudio.gang.appkrz",
+            "certificate_hash": "1aaf9324d743f230adf434b06bfe5b70b7c6c1b8"
+          }
+        },
+        {
+          "client_id": "309242103146-72kvdob2teor55fv57o06qaobg834o94.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDmAB62BBFITN4c9v0PqPtCRJED3myjStQ"
+          "current_key": "AIzaSyAb1c6UMRC9GrjSbZHi59jcDHKkTswC-NI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "492964938901-dshom3m8g37bji1eo7251lq8mnkq6okr.apps.googleusercontent.com",
+              "client_id": "309242103146-72kvdob2teor55fv57o06qaobg834o94.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
