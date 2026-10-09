@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # حدد هنا اسم المجلد الذي يحتوي على مشروع الأندرويد الخاص بك داخل المستودع
+    # إذا كان مجلد المشروع اسمه Gang مثلاً، اتركه كما هو. وإذا كان اسماً آخر، قم بتغييره:
+    defaults:
+      run:
+        working-directory: ./Gang
 
     steps:
     - name: Checkout repository
@@ -26,12 +31,9 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-      # إذا كان مشروعك داخل مجلد فرعي، أضف السطر التالي وأزل علامة الشباك #:
-      # working-directory: ./اسم_المجلد_الفرعي
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug
-      # working-directory: ./اسم_المجلد_الفرعي
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
