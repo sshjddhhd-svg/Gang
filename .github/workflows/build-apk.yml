@@ -8,11 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # حدد هنا اسم المجلد الذي يحتوي على مشروع الأندرويد الخاص بك داخل المستودع
-    # إذا كان مجلد المشروع اسمه Gang مثلاً، اتركه كما هو. وإذا كان اسماً آخر، قم بتغييره:
-    defaults:
-      run:
-        working-directory: ./Gang
 
     steps:
     - name: Checkout repository
@@ -39,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
-        path: '**/build/outputs/apk/debug/*.apk'
+        path: app/build/outputs/apk/debug/app-debug.apk
